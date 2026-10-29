@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https: blob:; style-src 'self'; script-src 'self'; font-src 'self'; connect-src 'self' https://api.github.com; frame-src 'self'; base-uri 'self'; form-action 'none'">
+<meta name="robots" content="noindex, nofollow">
+<meta name="googlebot" content="noindex, nofollow">
+<title>Admin · Kami portfolio</title>
+<meta name="theme-color" content="#0b0b0c">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/admin/admin.css">
+<script src="/admin/admin.js" defer></script>
+</head>
+<body>
+<div id="gate" class="gate" hidden>
+  <form class="gate-card" id="gate-form" autocomplete="off">
+    <div class="brand">Kami<span class="dot"></span> <span class="brand-sub">Admin</span></div>
+    <h1 id="gate-title">Enter your passcode</h1>
+    <p class="muted" id="gate-sub">This keeps the editor tucked away from visitors.</p>
+    <input id="gate-pass" type="password" inputmode="text" placeholder="Passcode" autocomplete="current-password" required>
+    <input id="gate-pass2" type="password" placeholder="Type it again" autocomplete="new-password" hidden>
+    <button class="btn primary" type="submit" id="gate-btn">Unlock</button>
+    <p class="gate-err" id="gate-err" role="alert"></p>
+  </form>
+</div>
+
+<div id="shell" class="shell" hidden>
+  <header class="top">
+    <div class="brand">Kami<span class="dot"></span> <span class="brand-sub">Admin</span></div>
+    <span class="dirty" id="dirty" hidden>Unsaved changes</span>
+    <div class="top-actions">
+      <button class="btn ghost only-phone" type="button" id="open-preview">Preview</button>
+      <button class="btn primary" type="button" id="publish"><span class="spin" aria-hidden="true"></span><span class="lbl">Save &amp; publish</span></button>
+    </div>
+  </header>
+  <div class="banner" id="banner" hidden></div>
+  <div class="layout">
+    <main class="editor">
+      <nav class="tabs" id="tabs" aria-label="Sections"></nav>
+      <div id="panel" class="panel"></div>
+    </main>
+    <aside class="preview" id="preview" aria-label="Live preview">
+      <div class="pv-bar">
+        <button class="btn ghost only-phone" type="button" id="close-preview">← Back to editing</button>
+        <select id="pv-page" aria-label="Preview page"></select>
+        <span class="pv-tag">Live preview</span>
+      </div>
+      <div class="pv-frame"><iframe id="frame" title="Preview of your site" src="about:blank"></iframe></div>
+    </aside>
+  </div>
+</div>
+
+<div class="modal" id="connect" hidden>
+  <form class="modal-card" id="connect-form" autocomplete="off">
+    <h2>Connect GitHub</h2>
+    <p class="muted">Paste your GitHub token. It stays only in this browser and is used to save your site to your repo. The README has the exact steps to make one.</p>
+    <label>Token<input id="c-token" type="password" placeholder="github_pat_..." required spellcheck="false" autocapitalize="off"></label>
+    <div class="row3">
+      <label>GitHub username<input id="c-owner" spellcheck="false" autocapitalize="off"></label>
+      <label>Repo name<input id="c-repo" spellcheck="false" autocapitalize="off"></label>
+      <label>Branch<input id="c-branch" spellcheck="false" autocapitalize="off"></label>
+    </div>
+    <p class="gate-err" id="c-err" role="alert"></p>
+    <div class="modal-actions">
+      <button class="btn ghost" type="button" id="c-cancel">Cancel</button>
+      <button class="btn primary" type="submit" id="c-go"><span class="spin" aria-hidden="true"></span><span class="lbl">Connect</span></button>
+    </div>
+  </form>
+</div>
+
+<div class="toasts" id="toasts" aria-live="polite"></div>
+</body>
+</html>

@@ -1,0 +1,524 @@
+{
+  "site": {
+    "name": "Kami",
+    "title": "Project Lead",
+    "footer": "© 2026 Kami · Project Lead"
+  },
+  "hero": {
+    "eyebrow": "Roblox · Project Lead",
+    "tagline": "I take Roblox games from roadmap to launch, and keep them growing after.",
+    "primary_button": "See my work",
+    "secondary_button": "Get in touch",
+    "now_label": "Now leading",
+    "now_project": "anime-infinite"
+  },
+  "stats": [
+    {
+      "value": 85,
+      "suffix": "M+",
+      "label": "Project visits",
+      "auto": false
+    },
+    {
+      "value": 170,
+      "suffix": "K+",
+      "label": "Largest community",
+      "auto": false
+    },
+    {
+      "value": 5,
+      "suffix": "",
+      "label": "Projects",
+      "auto": true
+    }
+  ],
+  "home": {
+    "work_kicker": "01 · Work",
+    "work_title": "Selected projects",
+    "work_sub": "Roblox games I lead, own, or helped ship. Tap one for the full story.",
+    "featured": [
+      "ascension-arena",
+      "anime-infinite",
+      "anime-guardians"
+    ],
+    "about_kicker": "02 · About",
+    "about_title": "Clear plans. Shipped games.",
+    "about_intro": "I'm Kami, a Roblox Project Lead.",
+    "about_text": "I turn big ideas into clear milestones, owners and delivery windows, then keep developers, artists, builders and community teams aligned on the next release.",
+    "skills_kicker": "03 · Skills",
+    "skills_title": "What I bring to a team",
+    "contact_kicker": "04 · Contact"
+  },
+  "work": {
+    "title": "Every project,",
+    "title_muted": "in depth.",
+    "sub": "Roblox games I lead, own, or helped ship. Tap any project for my role, the numbers and what I did on it.",
+    "timeline_title": "Timeline",
+    "timeline_sub": "Current roles first, then the projects I've moved on from.",
+    "results_title": "The scale behind the work"
+  },
+  "about": {
+    "title": "Clear plans.",
+    "title_muted": "Shipped games.",
+    "intro": "I'm Kami, a Roblox Project Lead.",
+    "paragraphs": [
+      "I take Roblox games from roadmap to launch, and keep them growing after. My work sits between the idea and the players: turning big ideas into a plan a team can actually ship, then keeping that team pointed at the next release.",
+      "I've worked on Roblox projects reaching 85M+ visits and communities of 170K+, as Project Manager on Anime Guardians and Slimebound, and as Project Lead on Multiversal and now Anime Infinite. Ascension Arena is my own game, where I'm the founder and lead developer."
+    ],
+    "steps_kicker": "How I work",
+    "steps_title": "From idea to live game",
+    "steps": [
+      {
+        "title": "Plan",
+        "text": "Broad goals become clear milestones, owners, priorities and delivery windows, so everyone knows what is next and why."
+      },
+      {
+        "title": "Coordinate",
+        "text": "Developers, artists, builders and community teams stay aligned around the next release, with blockers cleared early."
+      },
+      {
+        "title": "Ship",
+        "text": "Scope stays visible, progress is tracked, and every release gets checklists, QA passes and clear content priorities."
+      },
+      {
+        "title": "Grow",
+        "text": "After launch I stay on the game: retention, economy health, events and player feedback, so the next update lands better than the last."
+      }
+    ],
+    "timeline_title": "Where I've led",
+    "timeline_sub": "Tap a project for the details."
+  },
+  "skills": {
+    "title": "What I bring",
+    "title_muted": "to a team.",
+    "sub": "Two halves of one job: getting a game built and launched, then keeping it healthy once players arrive.",
+    "groups": [
+      {
+        "id": "lead",
+        "name": "Leading the project",
+        "items": [
+          {
+            "name": "Roadmap planning",
+            "text": "Turns broad goals into clear milestones, owners, priorities and delivery windows."
+          },
+          {
+            "name": "Team coordination",
+            "text": "Keeps developers, artists, builders and community teams aligned around the next release."
+          },
+          {
+            "name": "Production oversight",
+            "text": "Tracks progress, removes blockers and keeps scope visible before issues become costly."
+          },
+          {
+            "name": "Launch preparation",
+            "text": "Prepares release checklists, QA passes, content priorities and live-operation handoffs."
+          }
+        ],
+        "projects": [
+          "ascension-arena",
+          "anime-infinite",
+          "slimebound",
+          "multiversal",
+          "anime-guardians"
+        ]
+      },
+      {
+        "id": "live",
+        "name": "Live operations",
+        "items": [
+          {
+            "name": "Retention analysis",
+            "text": "Monitors player retention, finds drop-off points and evaluates progression systems to improve long-term engagement."
+          },
+          {
+            "name": "Economy & monetization",
+            "text": "Analyses monetization performance and economy health, balancing revenue with player experience."
+          },
+          {
+            "name": "Event & content strategy",
+            "text": "Plans retention-focused events and content designed to increase player activity and long-term engagement."
+          },
+          {
+            "name": "KPI tracking & analysis",
+            "text": "Tracks retention, revenue, engagement and update performance to judge overall game health."
+          },
+          {
+            "name": "Community feedback",
+            "text": "Weighs player feedback alongside game data to find issues, prioritise fixes and support better decisions."
+          }
+        ],
+        "projects": [
+          "ascension-arena",
+          "multiversal"
+        ]
+      }
+    ]
+  },
+  "contact": {
+    "email": "kammii.workacc@gmail.com",
+    "discord": "https://discord.gg/GH3an6hAr5",
+    "form_email": "kammii.workacc@gmail.com",
+    "cta_title": "Got a Roblox project?",
+    "cta_muted": "Let's talk.",
+    "title": "Got a Roblox project?",
+    "title_muted": "Let’s talk.",
+    "sub": "Reach out by email or Discord about project leadership, project management or live operations.",
+    "form_title": "Send a project inquiry",
+    "form_intro": "Share the details I need to see whether I'm the right fit: the project, what kind of game it is, what you need, and a rough budget.",
+    "form_note": "Goes straight to Kami’s inbox.",
+    "budgets": [
+      "Not sure yet",
+      "1K+",
+      "5K+",
+      "10K+",
+      "15K+",
+      "20K+"
+    ]
+  },
+  "seo": {
+    "home": {
+      "title": "Kami · Roblox Project Lead",
+      "description": "Kami is a Roblox Project Lead. Roadmaps, team coordination, launches and live operations on projects reaching 85M+ visits and communities of 170K+."
+    },
+    "work": {
+      "title": "Work · Kami, Roblox Project Lead",
+      "description": "All 5 of Kami's projects: Ascension Arena, Anime Infinite, Slimebound, Multiversal and Anime Guardians. Roles, stats and what he did on each."
+    },
+    "about": {
+      "title": "About · Kami, Roblox Project Lead",
+      "description": "Kami is a Roblox Project Lead: clear roadmaps, aligned teams, launch-ready releases and live operations that keep games growing."
+    },
+    "skills": {
+      "title": "Skills · Kami, Roblox Project Lead",
+      "description": "What Kami brings to a Roblox team: roadmap planning, team coordination, production oversight, launch preparation and live operations."
+    },
+    "contact": {
+      "title": "Contact · Kami, Roblox Project Lead",
+      "description": "Reach Kami by email or Discord for Roblox project leadership, project management and live operations."
+    }
+  },
+  "projects": [
+    {
+      "slug": "ascension-arena",
+      "name": "Ascension Arena",
+      "role": "Owner / Creator",
+      "role_sub": "Founder & Lead Developer",
+      "state": "current",
+      "status": "In development",
+      "timeline_label": "Now",
+      "image": "/img/ascension-arena-1200.webp",
+      "image_small": "/img/ascension-arena-720.webp",
+      "cover_style": "purple",
+      "short": "A multiversal battleground where players choose their own character and fight with them. I'm running production, game design and live operations.",
+      "tags": [
+        "Multiversal battleground",
+        "Production",
+        "Game design",
+        "Live ops"
+      ],
+      "highlights": [],
+      "intro": "My own project: a multiversal battleground where players choose their own character and fight with them. I founded it, I'm the lead developer, and I run it end to end.",
+      "seo_description": "Ascension Arena: Kami's own Roblox multiversal battleground. Founder & Lead Developer, running production, game design and live operations.",
+      "facts": [
+        {
+          "label": "Role",
+          "value": "Owner / Creator"
+        },
+        {
+          "label": "Title",
+          "value": "Founder & Lead Developer"
+        },
+        {
+          "label": "Status",
+          "value": "In development"
+        },
+        {
+          "label": "Genre",
+          "value": "Multiversal battlegrounds"
+        },
+        {
+          "label": "Platform",
+          "value": "Roblox"
+        },
+        {
+          "label": "Type",
+          "value": "Owned project"
+        }
+      ],
+      "stats": [],
+      "responsibilities_title": "What I do on it",
+      "responsibilities": [
+        {
+          "title": "Production",
+          "text": "I oversee production from start to finish: what gets built, in what order, and when it ships."
+        },
+        {
+          "title": "Game design",
+          "text": "I shape the core idea: pick your own character from across the multiverse and fight with them."
+        },
+        {
+          "title": "Lead development",
+          "text": "As founder and lead developer, I lead the build itself, not just the plan around it."
+        },
+        {
+          "title": "Live operations",
+          "text": "I own live operations for the game, so it is set up to keep growing after launch."
+        }
+      ],
+      "liveops": [],
+      "scope": "Ascension Arena is one of my owned, in-progress projects: I'm both the owner and the person leading it.",
+      "note": "",
+      "links": []
+    },
+    {
+      "slug": "anime-infinite",
+      "name": "Anime Infinite",
+      "role": "Project Lead",
+      "role_sub": "",
+      "state": "current",
+      "status": "Now leading",
+      "timeline_label": "Now",
+      "image": "",
+      "image_small": "",
+      "cover_style": "purple",
+      "short": "Currently leading development.",
+      "tags": [],
+      "highlights": [],
+      "intro": "I am the Project Lead on Anime Infinite, currently leading development.",
+      "seo_description": "Anime Infinite: Kami is the Project Lead, currently leading development.",
+      "facts": [
+        {
+          "label": "Role",
+          "value": "Project Lead"
+        },
+        {
+          "label": "Status",
+          "value": "Current"
+        }
+      ],
+      "stats": [],
+      "responsibilities_title": "What I do on it",
+      "responsibilities": [],
+      "liveops": [],
+      "scope": "",
+      "note": "More about Anime Infinite is coming soon.",
+      "links": []
+    },
+    {
+      "slug": "slimebound",
+      "name": "Slimebound",
+      "role": "Project Manager",
+      "role_sub": "",
+      "state": "current",
+      "status": "In development",
+      "timeline_label": "Now",
+      "image": "",
+      "image_small": "",
+      "cover_style": "green",
+      "short": "Managing production and launch preparation for an upcoming Roblox game.",
+      "tags": [
+        "Roadmap",
+        "Pre-launch coordination"
+      ],
+      "highlights": [
+        {
+          "value": "6K+",
+          "label": "community before launch"
+        }
+      ],
+      "intro": "I'm the Project Manager on Slimebound, an upcoming Roblox game: I manage project delivery and get it ready for launch. It already has a community of 6K+ before release.",
+      "seo_description": "Slimebound: Kami is Project Manager on this upcoming Roblox game, managing production and launch preparation. 6K+ community before launch.",
+      "facts": [
+        {
+          "label": "Role",
+          "value": "Project Manager"
+        },
+        {
+          "label": "Status",
+          "value": "In development"
+        },
+        {
+          "label": "Platform",
+          "value": "Roblox"
+        },
+        {
+          "label": "Type",
+          "value": "Project for another team"
+        }
+      ],
+      "stats": [
+        {
+          "value": 6,
+          "suffix": "K+",
+          "label": "Community before launch"
+        }
+      ],
+      "responsibilities_title": "What I do on it",
+      "responsibilities": [
+        {
+          "title": "Roadmap management",
+          "text": "I keep the roadmap clear: milestones, owners, priorities and delivery windows the whole team can see."
+        },
+        {
+          "title": "Project delivery",
+          "text": "I manage production day to day, tracking progress and clearing blockers so the game keeps moving."
+        },
+        {
+          "title": "Pre-launch coordination",
+          "text": "I line up everything that has to come together before release, across the team and the community."
+        },
+        {
+          "title": "Launch preparation",
+          "text": "I prepare the release itself: checklists, QA passes and content priorities."
+        }
+      ],
+      "liveops": [],
+      "scope": "Slimebound is a project for another team, still in development.",
+      "note": "",
+      "links": []
+    },
+    {
+      "slug": "multiversal",
+      "name": "Multiversal",
+      "role": "Former Project Lead",
+      "role_sub": "Live Operations",
+      "state": "former",
+      "status": "Previously worked on",
+      "timeline_label": "Before",
+      "image": "",
+      "image_small": "",
+      "cover_style": "blue",
+      "short": "Led production and live operations for an upcoming Roblox experience: development coordination, player engagement, retention strategy and long-term growth.",
+      "tags": [
+        "Production",
+        "Retention",
+        "Live ops"
+      ],
+      "highlights": [],
+      "intro": "I was the Project Lead on Multiversal, an upcoming Roblox experience. I led production and live operations, with a focus on development coordination, player engagement, retention strategy and long-term growth.",
+      "seo_description": "Multiversal: Kami was the Project Lead and ran live operations, covering development coordination, player engagement, retention strategy and long-term growth.",
+      "facts": [
+        {
+          "label": "Role",
+          "value": "Former Project Lead"
+        },
+        {
+          "label": "Also",
+          "value": "Live Operations"
+        },
+        {
+          "label": "Status",
+          "value": "Previously worked on"
+        },
+        {
+          "label": "Platform",
+          "value": "Roblox"
+        },
+        {
+          "label": "Type",
+          "value": "Project for another team"
+        }
+      ],
+      "stats": [],
+      "responsibilities_title": "What I did",
+      "responsibilities": [
+        {
+          "title": "Production",
+          "text": "I led production for the project and kept the work moving toward release."
+        },
+        {
+          "title": "Development coordination",
+          "text": "I kept the people building the game aligned on priorities and the next milestone."
+        },
+        {
+          "title": "Long-term growth",
+          "text": "I planned past launch day, so the game had a direction for growing over time."
+        }
+      ],
+      "liveops": [
+        {
+          "title": "Player engagement",
+          "text": "Keeping players active and giving them reasons to come back."
+        },
+        {
+          "title": "Retention strategy",
+          "text": "Planning how the game holds onto players over the long run."
+        }
+      ],
+      "scope": "Multiversal was a project for another team. I led it as Project Lead and ran its live operations.",
+      "note": "",
+      "links": []
+    },
+    {
+      "slug": "anime-guardians",
+      "name": "Anime Guardians",
+      "role": "Former Project Manager",
+      "role_sub": "",
+      "state": "former",
+      "status": "Previously worked on",
+      "timeline_label": "Before",
+      "image": "",
+      "image_small": "",
+      "cover_style": "red",
+      "short": "Production leadership and team coordination on a Roblox game with 85M+ visits.",
+      "tags": [],
+      "highlights": [
+        {
+          "value": "85M+",
+          "label": "visits"
+        },
+        {
+          "value": "170K+",
+          "label": "community"
+        }
+      ],
+      "intro": "I was Project Manager on Anime Guardians, a Roblox game that has reached 85M+ visits, with a community of 170K+, the largest I've worked with.",
+      "seo_description": "Anime Guardians: Kami was Project Manager on a Roblox game with 85M+ visits and a 170K+ community.",
+      "facts": [
+        {
+          "label": "Role",
+          "value": "Former Project Manager"
+        },
+        {
+          "label": "Status",
+          "value": "Previously worked on"
+        },
+        {
+          "label": "Platform",
+          "value": "Roblox"
+        },
+        {
+          "label": "Type",
+          "value": "Project for another team"
+        }
+      ],
+      "stats": [
+        {
+          "value": 85,
+          "suffix": "M+",
+          "label": "Visits"
+        },
+        {
+          "value": 170,
+          "suffix": "K+",
+          "label": "Community"
+        }
+      ],
+      "responsibilities_title": "What I did",
+      "responsibilities": [
+        {
+          "title": "Production leadership",
+          "text": "I helped lead production, keeping the work organised and moving."
+        },
+        {
+          "title": "Team coordination",
+          "text": "I kept the people on the project aligned around what came next."
+        }
+      ],
+      "liveops": [],
+      "scope": "Anime Guardians was a project for another team, and the biggest I've worked on by reach.",
+      "note": "",
+      "links": []
+    }
+  ]
+}
