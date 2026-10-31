@@ -84,6 +84,8 @@
       </div>
     </div>
   </section>`;
+    const MQ = (HM.marquee || []).map(w => String(w || '').trim()).filter(Boolean);
+    const marquee = dir => MQ.length ? `<div class="marquee${dir ? ' ' + dir : ''}" aria-hidden="true"><div class="mq-track"><span>${MQ.map(w => esc(w) + ' <i>•</i> ').join('')}</span><span>${MQ.map(w => esc(w) + ' <i>•</i> ').join('')}</span></div></div>` : '';
     const inProj = list => P.filter(p => (list || []).includes(p.slug));
     const out = { title: '', desc: '', html: '' };
     const seo = k => { const s = (C.seo || {})[k] || {}; out.title = s.title || S.name; out.desc = s.description || ''; };
@@ -118,16 +120,21 @@
     </div>${heroBg ? '\n    <a class="scroll-cue" href="#work" aria-label="Scroll to projects"></a>' : ''}
   </section>
 
-  <section id="work" class="section wrap" aria-labelledby="work-title">
-    <div class="sec-head reveal">
-      <p class="kicker">${esc(HM.work_kicker)}</p>
-      <h2 id="work-title">${esc(HM.work_title)}</h2>
-      <p class="sub">${esc(HM.work_sub)}</p>
+  <section id="work" class="hs" data-hscroll aria-labelledby="work-title">
+    <div class="hs-pin">
+      ${marquee('')}
+      <div class="hs-track">
+        <div class="hs-item hs-head sec-head reveal">
+          <p class="kicker">${esc(HM.work_kicker)}</p>
+          <h2 id="work-title">${esc(HM.work_title)}</h2>
+          <p class="sub">${esc(HM.work_sub)}</p>
+          <p class="hs-hint" aria-hidden="true"><span></span>Scroll</p>
+        </div>
+        ${feat.map(p => `<div class="hs-item">${card(p, false)}</div>`).join('\n        ')}
+        <div class="hs-item"><a class="hs-end reveal" href="/work/"><span class="hs-end-k">${esc(HM.work_kicker)}</span><strong>View all ${P.length} projects</strong><span class="hs-end-arrow" aria-hidden="true">→</span></a></div>
+      </div>
+      <div class="hs-bar" aria-hidden="true"><i></i></div>
     </div>
-    <div class="grid">
-      ${feat.map((p, i) => card(p, i === 0)).join('\n      ')}
-    </div>
-    <a class="view-all reveal" href="/work/">View all ${P.length} projects <span aria-hidden="true">→</span></a>
   </section>
 
   <section id="about" class="section wrap about" aria-labelledby="about-title">
@@ -145,7 +152,8 @@
     </div>
   </section>
 
-  <section id="skills" class="section wrap" aria-labelledby="skills-title">
+  <section id="skills" class="section wrap has-mq" aria-labelledby="skills-title">
+    ${marquee('rev')}
     <div class="sec-head reveal">
       <p class="kicker">${esc(HM.skills_kicker)}</p>
       <h2 id="skills-title">${esc(HM.skills_title)}</h2>
@@ -173,7 +181,7 @@
     } else if (page === 'work') {
       seo('work'); const W = C.work || {};
       out.html = nav('Work') + `<main id="main" class="page">
-  ${pagehead('Work', two(W.title, W.title_muted), W.sub)}
+  <div class="has-mq mq-head">${marquee('')}${pagehead('Work', two(W.title, W.title_muted), W.sub)}</div>
   <section class="section-tight wrap" aria-label="Projects">
     <div class="grid">
       ${P.length ? card(P[0], true) : ''}

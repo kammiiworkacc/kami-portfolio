@@ -409,6 +409,7 @@
     home: ['Home page', '/', () => [
       section('Selected projects', null, content.home, [{ k: 'work_kicker', label: 'Small label' }, { k: 'work_title', label: 'Heading' }, { k: 'work_sub', label: 'Text', multi: true, rows: 2 }, { k: 'featured', t: 'projects', label: 'Show these on the home page (the first is the big card)' }]),
       section('About preview', null, content.home, [{ k: 'about_kicker', label: 'Small label' }, { k: 'about_title', label: 'Heading' }, { k: 'about_intro', label: 'Big line' }, { k: 'about_text', label: 'Text', multi: true, rows: 3 }]),
+      section('Big scrolling words', 'The huge outlined words that drift behind the projects strip, the skills section and the top of the Work page. One word or short phrase per line; dots are added between them.', content.home, [{ k: 'marquee', t: 'strings', label: 'Words', add: 'Add word' }]),
       section('Skills & contact', null, content.home, [{ k: 'skills_kicker', label: 'Skills label' }, { k: 'skills_title', label: 'Skills heading' }, { k: 'contact_kicker', label: 'Contact label' }], true)
     ]],
     about: ['About', '/about/', () => [

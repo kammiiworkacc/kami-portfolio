@@ -95,7 +95,7 @@ window.KamiInit = function () {
     const SPECS = [
       ['.btn-primary, .btn-ghost', 0.28, 7, 2, false],
       ['.view-all:not(.inline)', 0.22, 6, 0, false],
-      ['.card, .now-card', 0.035, 6, 5, true],
+      ['.now-card', 0.035, 6, 5, true],
       ['.c-tile, .p-next a', 0.05, 6, 4, true],
       ['.skill-group, .skill-chipset, .steps li', 0, 0, 0, true],
     ];
@@ -179,33 +179,8 @@ window.KamiInit = function () {
     });
   }
 
-  // ---- count-up: runs when each number comes into view (on load and on scroll)
-  const counters = [...document.querySelectorAll('[data-count]')];
-  const fmt = n => String(n);
-  const runCount = el => {
-    if (root.classList.contains('intro-hold')) {   // wait for the intro to open onto the hero
-      if (!el.dataset.wait) { el.dataset.wait = '1'; addEventListener('kami:intro-open', () => runCount(el), { once: true, signal }); }
-      return;
-    }
-    if (el.dataset.done) return; el.dataset.done = '1';
-    const end = +el.dataset.count, dur = end > 20 ? 1700 : 1100;
-    const delay = el.closest('.in') && !root.classList.contains('vtnav') ? 250 : 60;
-    const t0 = performance.now() + delay;
-    const ease = p => p >= 1 ? 1 : 1 - Math.pow(2, -10 * p);   // expo-out: fast start, soft landing
-    const tick = now => {
-      const p = Math.min(1, Math.max(0, (now - t0) / dur));
-      el.textContent = fmt(Math.round(end * ease(p)));
-      if (p < 1) requestAnimationFrame(tick); else el.textContent = fmt(end);
-    };
-    requestAnimationFrame(tick);
-  };
-  if (!reduce) {
-    counters.forEach(el => { el.style.minWidth = Math.ceil(el.getBoundingClientRect().width) + 'px'; el.textContent = '0'; });
-    if ('IntersectionObserver' in window) {
-      const cio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { runCount(e.target); cio.unobserve(e.target); } }), { threshold: 0.6 });
-      counters.forEach(el => cio.observe(el)); onAbort(() => cio.disconnect());
-    } else counters.forEach(runCount);
-  }
+  // ---- v3.1 motion pack (motion.js): tilt, horizontal strip, marquees, image wipes, cursor, decoder stats
+  if (window.KamiMotion) window.KamiMotion({ signal, onAbort, reduce });
 
   // ---- reveal on scroll
   const items = document.querySelectorAll('.reveal');
