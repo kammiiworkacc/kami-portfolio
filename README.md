@@ -56,6 +56,8 @@ Optional: in the admin's **Settings**, paste your site address into "Live site a
 5. **Projects:** tap one to open it. Use **↑ ↓** to reorder, **✕** to delete, and **+ Add project** for a new one. **Upload image** adds a cover; it's shrunk automatically so the site stays fast.
 6. Tap **Save & publish**. When you see **"Published ✓ live in ~1 min"**, you're done.
 
+To change the big picture behind your name, go to **Profile → Hero background** and tap **Replace image** (wide pictures look best).
+
 Your edits are kept on the device until you publish, so closing the page won't lose them. **Settings → Discard unsaved changes** throws them away.
 
 About the passcode: it only hides the editor from visitors. The real protection is the GitHub token. Without it, nobody can save anything to your site.
@@ -72,9 +74,10 @@ about/ skills/ contact/   the other pages
 404.html              not-found page
 content.json          ALL the words, numbers, projects and image paths
 render.js             builds each page from content.json in the browser
-main.js               animations, count-up, page transitions, contact form
+main.js               smooth scrolling, text reveals, count-up, page transitions, contact form
+intro.js              the KAMI slice intro (home page, once per visit; off for reduced motion)
 boot.js, styles.css   early setup and the design
-img/ images/          images (the admin uploads new ones to images/)
+img/ images/          images (images/hero.jpg + hero.webp = the hero background; the admin uploads new ones to images/)
 fonts/                Inter fonts
 admin/                the editor (noindex: search engines skip it)
 vercel.json           sends /work/<anything>/ to the project template

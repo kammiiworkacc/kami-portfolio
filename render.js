@@ -3,7 +3,7 @@
   const root = document.documentElement;
   const COVERS = { purple: 'cover-infinite', green: 'cover-slime', blue: 'cover-multi', red: 'cover-anime' };
   const esc = v => String(v == null ? '' : v).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#x27;' }[c]));
-  const safeUrl = u => { u = String(u || '').trim(); return /^(https?:|mailto:|\/|#)/i.test(u) ? u : (u ? 'https://' + u : '#'); };
+  const safeUrl = u => { u = String(u || '').trim(); return /^(https?:|mailto:|\/|#|data:image\/)/i.test(u) ? u : (u ? 'https://' + u : '#'); };
   const NAV = [['Work', '/work/'], ['About', '/about/'], ['Skills', '/skills/'], ['Contact', '/contact/']];
 
   function build(C, page, slug) {
@@ -97,8 +97,13 @@
       <span class="now-cover cover ${np.image ? 'now-img' : (COVERS[np.cover_style] || COVERS.purple)}" aria-hidden="true">${np.image ? `<img src="${esc(safeUrl(np.image_small || np.image))}" alt="" decoding="async">` : `<span>${esc(np.name)}</span>`}</span>
       <span class="now-txt"><span class="now-k"><i aria-hidden="true"></i>${esc(H.now_label)}</span><strong>${esc(np.name)}</strong><span class="now-s">${esc(np.role)}</span></span>
     </a>` : '';
+      const bgSrc = H.background_image ? esc(safeUrl(H.background_image)) : '';
+      const bgWebp = bgSrc && H.background_image_webp ? `<source type="image/webp" srcset="${esc(safeUrl(H.background_image_webp))}">` : '';
+      const heroBg = bgSrc ? `
+    <div class="hero-bg" aria-hidden="true"><div class="hero-par" data-hero-par><picture>${bgWebp}<img src="${bgSrc}" alt="" width="2400" height="1260" fetchpriority="high" decoding="async"></picture></div><span class="hero-shade"></span></div>` : '';
       out.html = nav('') + `<main id="main">
-  <section class="hero wrap" aria-labelledby="hero-title">
+  <section class="hero${heroBg ? ' has-bg' : ''}" aria-labelledby="hero-title">${heroBg}
+    <div class="wrap hero-in">
     <div class="hero-main">
     <p class="eyebrow in d0"><span class="live" aria-hidden="true"></span>${esc(H.eyebrow)}</p>
     <h1 id="hero-title" class="in d1">${name}</h1>
@@ -110,6 +115,7 @@
     </div>
     ${statsDl('stats in d5')}
     </div>${nowCard}
+    </div>${heroBg ? '\n    <a class="scroll-cue" href="#work" aria-label="Scroll to projects"></a>' : ''}
   </section>
 
   <section id="work" class="section wrap" aria-labelledby="work-title">
@@ -324,7 +330,7 @@
     const out = build(C, page, slug);
     const end = document.getElementById('app-end');
     // remove what a previous render put in <body>, keep scripts and the end marker
-    [...document.body.children].forEach(n => { if (n.tagName !== 'SCRIPT' && n !== end && n.tagName !== 'NOSCRIPT') n.remove(); });
+    [...document.body.children].forEach(n => { if (n.tagName !== 'SCRIPT' && n !== end && n.tagName !== 'NOSCRIPT' && n.id !== 'kintro') n.remove(); });
     document.body.insertAdjacentHTML('afterbegin', out.html);
     document.querySelectorAll('[data-vt]').forEach(el => { el.style.viewTransitionName = 'p-' + el.dataset.vt; });
     if (out.title) document.title = out.title;

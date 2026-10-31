@@ -1,5 +1,51 @@
 /* Kami portfolio interactions. render.js calls KamiInit() after every render; a re-render tears the last run down first. */
 (() => {
+/* ---- smooth wheel scrolling (Lenis-style, hand-written): eases mouse-wheel / trackpad input toward a target with a
+   frame-rate-independent lerp. Touch scrolling stays native; off for reduced motion and inside the admin preview. */
+const Smooth = (() => {
+  const root = document.documentElement;
+  const rm = matchMedia('(prefers-reduced-motion: reduce)'), fine = matchMedia('(hover: hover) and (pointer: fine)');
+  let target = 0, current = 0, raf = 0, last = 0;
+  const on = () => fine.matches && !rm.matches && !root.classList.contains('preview');
+  const sync = () => { root.classList.toggle('smooth', on()); };
+  sync(); rm.addEventListener('change', sync); fine.addEventListener('change', sync);
+  const max = () => Math.max(0, document.documentElement.scrollHeight - innerHeight);
+  const stop = () => { if (raf) cancelAnimationFrame(raf); raf = 0; };
+  const step = now => {
+    raf = 0;
+    // something else moved the page (keyboard, scrollbar drag, find-in-page): hand control back
+    if (Math.abs(scrollY - current) > 2) { target = current = scrollY; return; }
+    const dt = last ? Math.max(1, Math.min(64, now - last)) : 16.7; last = now;
+    current += (target - current) * (1 - Math.exp(-dt * 0.0072));
+    if (Math.abs(target - current) < 0.4) current = target;
+    scrollTo(0, current);
+    if (current !== target) raf = requestAnimationFrame(step);
+  };
+  const go = y => {
+    if (!raf) { current = scrollY; last = 0; }
+    target = Math.max(0, Math.min(max(), y));
+    if (!raf) raf = requestAnimationFrame(step);
+  };
+  const scrollable = (n, dy) => {
+    for (; n && n.nodeType === 1 && n !== document.body && n !== root; n = n.parentElement) {
+      if (n.scrollHeight > n.clientHeight + 1) {
+        const oy = getComputedStyle(n).overflowY;
+        if ((oy === 'auto' || oy === 'scroll') && ((dy < 0 && n.scrollTop > 0) || (dy > 0 && n.scrollTop + n.clientHeight < n.scrollHeight - 1))) return true;
+      }
+    }
+    return false;
+  };
+  addEventListener('wheel', e => {
+    if (root.dataset.intro === '1') { e.preventDefault(); return; }
+    if (!on() || e.ctrlKey || e.defaultPrevented || Math.abs(e.deltaX) > Math.abs(e.deltaY) || scrollable(e.target, e.deltaY)) return;
+    e.preventDefault();
+    let d = e.deltaY;
+    if (e.deltaMode === 1) d *= 40; else if (e.deltaMode === 2) d *= innerHeight;
+    go((raf ? target : scrollY) + d);
+  }, { passive: false });
+  return { on, to: el => { const pad = parseFloat(getComputedStyle(root).scrollPaddingTop) || 0; go(el.getBoundingClientRect().top + scrollY - pad); }, stop };
+})();
+
 let last = null;
 window.KamiInit = function () {
   if (last) last.abort();
@@ -13,12 +59,16 @@ window.KamiInit = function () {
   const bar = document.querySelector('.progress');
   const par = reduce ? null : document.querySelector('[data-parallax]');
   const parBox = par && par.parentElement;
+  const hpar = reduce ? null : document.querySelector('[data-hero-par]');
+  const hbg = hpar && hpar.parentElement;
+  let heroH = 0;
 
   // ---- one rAF-throttled scroll loop: progress bar (scaleX), nav state, hero parallax
   let maxY = 1, parH = 0, parEnd = 0, ticking = false, lastScrolled = null, lastP = -1;
   const measure = () => {
     maxY = Math.max(1, document.documentElement.scrollHeight - innerHeight);
     if (par) { parH = parBox.offsetHeight; parEnd = parBox.offsetTop + parH; }
+    if (hpar) heroH = hbg.offsetHeight;
     frame();
   };
   const frame = () => {
@@ -27,6 +77,7 @@ window.KamiInit = function () {
     const s = y > 12;
     if (s !== lastScrolled) { nav.classList.toggle('scrolled', s); lastScrolled = s; }
     if (bar) { const p = Math.min(1, Math.max(0, y / maxY)); if (Math.abs(p - lastP) > 0.0005) { bar.style.transform = `scaleX(${p.toFixed(4)})`; lastP = p; } }
+    if (hpar && y < heroH + 40) hpar.style.transform = `translate3d(0,${(Math.min(y, heroH) * 0.32).toFixed(1)}px,0)`;
     if (par && y < parEnd + 40) {
       const t = Math.min(parH * 0.1, Math.max(0, y * 0.22));
       par.style.transform = `translate3d(0,${t.toFixed(1)}px,0) scale(1.12)`;
@@ -87,10 +138,55 @@ window.KamiInit = function () {
     }));
   }
 
+  // ---- the hero's slow drift only runs while the hero is on screen
+  if (hbg && 'IntersectionObserver' in window) {
+    const hio = new IntersectionObserver(es => es.forEach(e => hbg.classList.toggle('idle', !e.isIntersecting)));
+    hio.observe(hbg); onAbort(() => hio.disconnect());
+  }
+
+  // ---- staggered mask reveals: headings are split into words (the hero name into letters), each rising out of its own mask
+  if (!reduce) {
+    const D = { d0: 50, d1: 120, d2: 220, d3: 320, d4: 420, d5: 520 };
+    const mkSpan = (cls, txt) => { const s = document.createElement('span'); s.className = cls; if (txt != null) s.textContent = txt; return s; };
+    const splitEl = (el, letters) => {
+      if (el.dataset.split) return;
+      let i = 0;
+      const unit = t => { const w = mkSpan('w'), wi = mkSpan('w-i', t); wi.style.setProperty('--i', i++); w.appendChild(wi); return w; };
+      const walk = node => [...node.childNodes].forEach(n => {
+        if (n.nodeType === 3) {
+          const frag = document.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach(p => {
+            if (!p) return;
+            if (/^\s+$/.test(p)) frag.append(p);
+            else if (letters) [...p].forEach(ch => frag.append(unit(ch)));
+            else frag.append(unit(p));
+          });
+          n.replaceWith(frag);
+        } else if (n.nodeType === 1 && n.tagName !== 'BR') walk(n);
+      });
+      if (!el.hasAttribute('aria-label') && letters) el.setAttribute('aria-label', el.textContent.trim());
+      walk(el);
+      el.dataset.split = '1'; el.classList.add('split');
+      if (el.classList.contains('in')) {
+        el.classList.add('in-split');
+        const d = Object.keys(D).find(k => el.classList.contains(k));
+        el.style.setProperty('--wd', (d ? D[d] : 0) + 'ms');
+      }
+    };
+    document.querySelectorAll('.hero h1').forEach(el => splitEl(el, true));
+    document.querySelectorAll('.sec-head h2, .page-title, .cta-band h2, .contact-card h2, .p-title, .inquiry-open h2').forEach(el => {
+      if (el.classList.contains('in') || el.closest('.reveal')) splitEl(el, false);
+    });
+  }
+
   // ---- count-up: runs when each number comes into view (on load and on scroll)
   const counters = [...document.querySelectorAll('[data-count]')];
   const fmt = n => String(n);
   const runCount = el => {
+    if (root.classList.contains('intro-hold')) {   // wait for the intro to open onto the hero
+      if (!el.dataset.wait) { el.dataset.wait = '1'; addEventListener('kami:intro-open', () => runCount(el), { once: true, signal }); }
+      return;
+    }
     if (el.dataset.done) return; el.dataset.done = '1';
     const end = +el.dataset.count, dur = end > 20 ? 1700 : 1100;
     const delay = el.closest('.in') && !root.classList.contains('vtnav') ? 250 : 60;
@@ -125,6 +221,11 @@ window.KamiInit = function () {
   document.addEventListener('click', e => {
     if (e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     const a = e.target.closest('a'); if (!a) return;
+    // same-page anchors glide with the smooth scroller
+    if (Smooth.on() && a.hash && a.origin === location.origin && a.pathname === location.pathname && !a.target) {
+      const t = document.getElementById(decodeURIComponent(a.hash.slice(1)));
+      if (t) { e.preventDefault(); Smooth.to(t); history.replaceState(null, '', a.hash); return; }
+    }
     // back button: return to where you were if you came from this site
     if (a.hasAttribute('data-back')) {
       let ref = null; try { ref = document.referrer && new URL(document.referrer); } catch {}

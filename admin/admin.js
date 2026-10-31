@@ -104,6 +104,7 @@
     const c = clone(content);
     const swap = v => (uploads[v] ? uploads[v].dataUrl : v);
     (c.projects || []).forEach(p => { p.image = swap(p.image); p.image_small = swap(p.image_small); });
+    if (c.hero) { c.hero.background_image = swap(c.hero.background_image); if (uploads[(content.hero || {}).background_image]) c.hero.background_image_webp = ''; }
     return c;
   };
   window.KAMI_PREVIEW = previewContent;
@@ -260,6 +261,41 @@
   };
   const imgSrc = v => (uploads[v] ? uploads[v].dataUrl : v);
 
+  // ---------- hero background image
+  const heroBgEditor = () => {
+    const H = content.hero;
+    const box = el('div', { class: 'cover-ed hero-bg-ed' });
+    const clearOld = () => { [H.background_image, H.background_image_webp].forEach(o => { if (uploads[o]) delete uploads[o]; }); };
+    const draw = () => {
+      const prev = el('div', { class: 'cover-prev hero-bg-prev' });
+      if (H.background_image) prev.append(el('img', { src: imgSrc(H.background_image), alt: '' })); else prev.textContent = 'No background image';
+      const file = el('input', { type: 'file', accept: 'image/*', 'aria-label': 'Upload hero background image' });
+      file.addEventListener('change', async () => {
+        const f = file.files[0]; if (!f) return;
+        try {
+          if (f.size > 15 * 1024 * 1024) { toast('That image is over 15 MB. Pick a smaller one.', 'err'); return; }
+          const { img, url } = await readImage(f);
+          const big = encode(img, 2400); URL.revokeObjectURL(url);
+          clearOld();
+          const path = `/images/hero-${Date.now().toString(36)}.${big.ext}`;
+          uploads[path] = { dataUrl: big.dataUrl };
+          H.background_image = path; H.background_image_webp = '';
+          toast('Background added. It goes live when you publish.', 'ok', 3000);
+          changed(); draw(); goPreview('/');
+        } catch (e) { toast(e.message, 'err'); }
+      });
+      const urlIn = el('input', { type: 'url', placeholder: 'https://… or /images/…', value: uploads[H.background_image] ? '' : (H.background_image || ''), spellcheck: 'false', autocapitalize: 'off' });
+      urlIn.addEventListener('change', () => { clearOld(); H.background_image = urlIn.value.trim(); H.background_image_webp = ''; changed(); draw(); });
+      box.replaceChildren(prev,
+        el('div', { class: 'btn-row' },
+          el('span', { class: 'btn ghost small file-btn' }, H.background_image ? 'Replace image' : 'Upload image', file),
+          H.background_image ? el('button', { type: 'button', class: 'btn ghost small danger', onclick: () => { clearOld(); H.background_image = ''; H.background_image_webp = ''; changed(); draw(); } }, 'Remove image') : null),
+        el('label', {}, 'Or paste an image link', urlIn));
+    };
+    draw();
+    return el('section', { class: 'sec' }, el('h2', { text: 'Hero background' }), el('p', { class: 'hint', text: 'The big image behind your name on the home page. Wide pictures work best (at least 1600 px across). It’s darkened automatically so your text stays readable.' }), box);
+  };
+
   // ---------- project editor
   const COVER_OPTS = [['purple', 'Purple'], ['green', 'Green'], ['blue', 'Blue'], ['red', 'Red']];
   const coverEditor = p => {
@@ -365,6 +401,7 @@
     profile: ['Profile', '/', () => [
       section('You', 'Your name and title appear at the top of every page.', content.site, [{ k: 'name', label: 'Name' }, { k: 'title', label: 'Title under your name', ph: 'Project Lead' }, { k: 'footer', label: 'Footer text' }], true),
       section('Hero', 'The first thing visitors see.', content.hero, [{ k: 'eyebrow', label: 'Small line above your name' }, { k: 'tagline', label: 'Tagline', multi: true, rows: 2 }, { k: 'primary_button', label: 'Main button' }, { k: 'secondary_button', label: 'Second button' }]),
+      heroBgEditor(),
       section('Hero numbers', 'These count up when the page opens.', content, [{ k: 'stats', t: 'list', label: 'Numbers', itemName: 'Number', add: 'Add number', blank: { value: 0, suffix: '', label: '', auto: false }, item: [{ k: 'value', t: 'number', label: 'Number', ph: '85' }, { k: 'suffix', label: 'After the number', ph: 'M+' }, { k: 'label', label: 'Label', ph: 'Project visits' }, { k: 'auto', t: 'check', label: 'Use my number of projects automatically' }] }]),
       section('“Now leading” card', 'The small card next to your name on the home page.', content.hero, [{ k: 'now_label', label: 'Card label', ph: 'Now leading' }, { k: 'now_project', t: 'select', label: 'Project', options: projOptions }], true)
     ]],
@@ -459,7 +496,7 @@
     if (!settings.owner || !settings.repo) { toast('Add your GitHub username and repo name in Settings.', 'err'); return; }
     const btn = $('#publish'); busy = true; setBusy(btn, true, 'Publishing…');
     try {
-      const used = new Set((content.projects || []).flatMap(p => [p.image, p.image_small]));
+      const used = new Set([...(content.projects || []).flatMap(p => [p.image, p.image_small]), (content.hero || {}).background_image]);
       const todo = Object.keys(uploads).filter(k => used.has(k));
       let n = 0;
       for (const path of todo) {

@@ -10,7 +10,9 @@
     "primary_button": "See my work",
     "secondary_button": "Get in touch",
     "now_label": "Now leading",
-    "now_project": "anime-infinite"
+    "now_project": "anime-infinite",
+    "background_image": "/images/hero.jpg",
+    "background_image_webp": "/images/hero.webp"
   },
   "stats": [
     {
